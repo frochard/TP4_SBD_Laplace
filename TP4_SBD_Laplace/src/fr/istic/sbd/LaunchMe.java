@@ -24,35 +24,28 @@ public class LaunchMe {
 			tableau[i]=(int) Math.round((Math.random()*m));
 			//On compte les valeurs inferieurs à m/2
 			if(tableau[i]>=m/2){
+				//Count
 				sensibilite++;
+				//Sum
+				//sensibilite+=tableau[i];
 			}
 		}
 		System.out.println(Arrays.toString(tableau));
-		
+		//On instancie Laplace
 		Laplace laplace = new Laplace(epsilon);
+		//Affichage de la perturbation générée
 		System.out.println("perturbation générée : "+ sensibilite);
-		double valPerturbee=sensibilite+laplace.genNoise(sensibilite, 1);
-		valPerturbee=sensibilite+laplace.genNoise(sensibilite, 1);
-		System.out.println(valPerturbee);
-		valPerturbee=sensibilite+laplace.genNoise(sensibilite, 1);
-		System.out.println(valPerturbee);
-		valPerturbee=sensibilite+laplace.genNoise(sensibilite, 1);
-		System.out.println(valPerturbee);
-		valPerturbee=sensibilite+laplace.genNoise(sensibilite, 1);
-		System.out.println(valPerturbee);
-		valPerturbee=sensibilite+laplace.genNoise(sensibilite, 1);
-		System.out.println(valPerturbee);
-		valPerturbee=sensibilite+laplace.genNoise(sensibilite, 1);
-		System.out.println(valPerturbee);
-		valPerturbee=sensibilite+laplace.genNoise(sensibilite, 1);
-		System.out.println(valPerturbee);
-		valPerturbee=sensibilite+laplace.genNoise(sensibilite, 1);
-		System.out.println(valPerturbee);
-		valPerturbee=sensibilite+laplace.genNoise(sensibilite, 1);
-		System.out.println(valPerturbee);
-		valPerturbee=sensibilite+laplace.genNoise(sensibilite, 1);
-		System.out.println(valPerturbee);
-		valPerturbee=sensibilite+laplace.genNoise(sensibilite, 1);
-		System.out.println(valPerturbee);
+		double valPerturbee=0;
+		double sumValPerturbee=0;
+		double moyValPerturbee=0;
+		double ratio=0;
+		for(int i=1;i<=50;i++){
+			valPerturbee=sensibilite+laplace.genNoise(sensibilite, 1);
+			sumValPerturbee+=valPerturbee;
+			moyValPerturbee=sumValPerturbee/i;
+			ratio=moyValPerturbee/sensibilite;
+			System.out.println(ratio);
+//			System.out.println(i+";"+valPerturbee+";"+valPerturbee+";"+sumValPerturbee+";"+moyValPerturbee+";"+ratio);
+		}
 	}
 }

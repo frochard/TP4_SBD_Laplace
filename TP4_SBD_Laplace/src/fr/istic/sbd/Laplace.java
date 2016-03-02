@@ -29,7 +29,7 @@ public class Laplace {
 			//On definit une varaible u, tirée selon une loi uniforme continue dans l'intervalle [-1/2, 1/2], 
 			double u=Math.random()-0.5;
 			//Definition de la variable aleatoire
-			varAleatoire=0-sensibilite/proportionBudget*Math.signum(u)*Math.log(1-2*Math.abs(u));
+			varAleatoire=0-(sensibilite/proportionBudget)*Math.signum(u)*Math.log(1-2*Math.abs(u));
 			
 		}
 		return varAleatoire;
