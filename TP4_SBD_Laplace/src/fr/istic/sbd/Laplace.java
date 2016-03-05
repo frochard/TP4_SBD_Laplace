@@ -47,7 +47,7 @@ public class Laplace {
 		//Declaration de la variable a retourner
 		double bruit=0;
 		//On test si on ne depasse pas le seuil
-		if(test || this.resteBudget+proportionBudget<=this.epsilon){
+		if(test || this.resteBudget-proportionBudget>=0){
 			//Verification du mode
 			if(!test){
 				this.resteBudget-=proportionBudget;
