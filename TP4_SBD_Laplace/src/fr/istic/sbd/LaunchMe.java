@@ -32,34 +32,34 @@ public class LaunchMe {
 
 		//Affichage desperturbations générées pour le tableau 1
 		System.out.println("Pour un tableau de "+tab1.getN()+" entiers, on obtient les valeurs perturbées : ");
-		double valPerturbee1=tab1.getTestCount()+laplace1.genNoise(sensibilite, 1);
+		double valPerturbee1=tab1.getTestCount()+laplace1.genNoise(sensibilite, 1000/3);
 		System.out.println("- "+valPerturbee1+" avec epsilon =1000. ");
-		double valPerturbee2=tab1.getTestCount()+laplace2.genNoise(sensibilite, 1);
+		double valPerturbee2=tab1.getTestCount()+laplace2.genNoise(sensibilite, 1/3);
 		System.out.println("- "+valPerturbee2+" avec epsilon =1. ");
-		double valPerturbee3=tab1.getTestCount()+laplace3.genNoise(sensibilite, 1);
+		double valPerturbee3=tab1.getTestCount()+laplace3.genNoise(sensibilite, 0.01/3);
 		System.out.println("- "+valPerturbee3+" avec epsilon =0,01. ");
-		double valPerturbee4=tab1.getTestCount()+laplace4.genNoise(sensibilite, 1);
+		double valPerturbee4=tab1.getTestCount()+laplace4.genNoise(sensibilite, 0.0001/3);
 		System.out.println("- "+valPerturbee4+" avec epsilon =0,0001. ");
 		//Affichage desperturbations générées pour le tableau 2
 		System.out.println("Pour un tableau de "+tab2.getN()+" entiers, on obtient les valeurs perturbées : ");
-		valPerturbee1=tab2.getTestCount()+laplace1.genNoise(sensibilite, 1);
+		valPerturbee1=tab2.getTestCount()+laplace1.genNoise(sensibilite, 1000/3);
 		System.out.println("- "+valPerturbee1+" avec epsilon =1000. ");
-		valPerturbee2=tab2.getTestCount()+laplace2.genNoise(sensibilite, 1);
+		valPerturbee2=tab2.getTestCount()+laplace2.genNoise(sensibilite, 1/3);
 		System.out.println("- "+valPerturbee2+" avec epsilon =1. ");
-		valPerturbee3=tab2.getTestCount()+laplace3.genNoise(sensibilite, 1);
+		valPerturbee3=tab2.getTestCount()+laplace3.genNoise(sensibilite, 0.01/3);
 		System.out.println("- "+valPerturbee3+" avec epsilon =0,01. ");
-		valPerturbee4=tab2.getTestCount()+laplace4.genNoise(sensibilite, 1);
+		valPerturbee4=tab2.getTestCount()+laplace4.genNoise(sensibilite, 0.0001/3);
 		System.out.println("- "+valPerturbee4+" avec epsilon =0,0001. ");
 		//Affichage desperturbations générées pour le tableau 1
 		System.out.println("Pour un tableau de "+tab3.getN()+" entiers, on obtient les valeurs perturbées : ");
-		valPerturbee1=tab3.getTestCount()+laplace1.genNoise(sensibilite, 1);
+		valPerturbee1=tab3.getTestCount()+laplace1.genNoise(sensibilite, 1000/3);
 		System.out.println("- "+valPerturbee1+" avec epsilon =1000. ");
-		valPerturbee2=tab3.getTestCount()+laplace2.genNoise(sensibilite, 1);
+		valPerturbee2=tab3.getTestCount()+laplace2.genNoise(sensibilite, 1/3);
 		System.out.println("- "+valPerturbee2+" avec epsilon =1. ");
-		valPerturbee3=tab3.getTestCount()+laplace3.genNoise(sensibilite, 1);
+		valPerturbee3=tab3.getTestCount()+laplace3.genNoise(sensibilite, 0.01/3);
 		System.out.println("- "+valPerturbee3+" avec epsilon =0,01. ");
-		valPerturbee4=tab3.getTestCount()+laplace4.genNoise(sensibilite, 1);
-		System.out.println("- "+valPerturbee4+" avec epsilon =0,01. ");
+		valPerturbee4=tab3.getTestCount()+laplace4.genNoise(sensibilite, 0.0001/3);
+		System.out.println("- "+valPerturbee4+" avec epsilon =0,0001. ");
 		
 		
 		System.out.println("*******************");
@@ -77,8 +77,8 @@ public class LaunchMe {
 		double ratio=0;
 		int nbValPerturbee=0;
 		int nbRatioOK=0;
-		while(nbRatioOK<5){
-			valPerturbee=tabQ6.getTestCount()+laplace.genNoise(sensibilite, 1);
+		while(nbRatioOK<5 && laplace.getResteBudget()>=0){
+			valPerturbee=tabQ6.getTestCount()+laplace.genNoise(sensibilite, epsilon/3);
 			nbValPerturbee++;
 			sumValPerturbee+=valPerturbee;
 			moyValPerturbee=sumValPerturbee/nbValPerturbee;
@@ -91,8 +91,12 @@ public class LaunchMe {
 			}
 			System.out.println(ratio);
 		}
-		System.out.println("Le count est égal à "+ tabQ6.getTestCount() +". ");
-		System.out.println("On obtient 5 valeurs  consecutives du ratio comprises entre 0.9 et 1.1 au bout de "+ nbValPerturbee +" perturbations. ");
+		if(nbRatioOK==5){
+			System.out.println("Le count est égal à "+ tabQ6.getTestCount() +". ");
+			System.out.println("On obtient 5 valeurs  consecutives du ratio comprises entre 0.9 et 1.1 au bout de "+ nbValPerturbee +" perturbations. ");
+		}else{
+			System.out.println("Le budget a été consommé avant d'atteindre 5 valeurs  consecutives du ratio comprises entre 0.9 et 1.1. ");
+		}
 		
 
 		
@@ -112,7 +116,7 @@ public class LaunchMe {
 		//On lance 1000 perturbations
 		for(int i=1;i<=1000;i++){
 			//On recupere la valeur absolue de la valeur perturbee
-			errValPerturbee+=Math.abs(laplace.genNoise(sensibilite, 1));
+			errValPerturbee+=Math.abs(laplace.genNoise(sensibilite, epsilon/3));
 			//On calcule la moyenne des erreurs des valeurs perturbées
 			moyErrValPerturbee=errValPerturbee/i;
 		}
